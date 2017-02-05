@@ -43,10 +43,12 @@ let quote = function() {
     ];
 
     result.querySelector('span').innerHTML = `${proverbs.rand()}.`;
-    result.classList.remove('hide');
+    result.parentElement.classList.remove('hidden');
 }
 
 const trigger = document.querySelector('#triggerButton');
 const result = document.querySelector('.proverb');
+const shareButtons = document.querySelectorAll('.resp-sharing-button__link');
 
+shareButtons.forEach(shareButton => shareButton.href += window.location.href);
 trigger.addEventListener('click', quote);
