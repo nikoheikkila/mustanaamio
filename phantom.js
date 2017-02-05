@@ -2,16 +2,16 @@ Array.prototype.rand = function() {
     return this[Math.floor(Math.random() * this.length)];
 };
 
-const trigger = document.querySelector('#triggerButton');
-const result = document.querySelector('.proverb');
+String.prototype.sanitize = function() {
+    return this.replace(/(<([^>]+)>)/ig, '').trim();
+};
 
 let quote = function() {
-    const name = document.querySelector('#heroName').value.trim();
+    const name = document.querySelector('#heroName').value.sanitize();
 
     if (name.length === 0)
         return false;
-
-    if (name.length > 20) {
+    else if (name.length > 20) {
         alert("The Phantom says no one has that long name.");
         return false;
     }
@@ -42,10 +42,11 @@ let quote = function() {
         `The fists of ${name} are steel`
     ];
 
-    let proverb = proverbs.rand();
-
-    result.querySelector('span').innerText = `${proverb}.`;
+    result.querySelector('span').innerHTML = `${proverbs.rand()}.`;
     result.classList.remove('hide');
 }
+
+const trigger = document.querySelector('#triggerButton');
+const result = document.querySelector('.proverb');
 
 trigger.addEventListener('click', quote);
